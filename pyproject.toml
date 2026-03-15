@@ -1,0 +1,22 @@
+[project]
+name = "owokuro"
+version = "0.1.0"
+description = "Generate mokuro files using owocr"
+readme = "README.md"
+authors = [
+    { name = "kamperemu" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "websocket-client"
+]
+
+[project.scripts]
+owokuro = "owokuro.__main__:main"
+
+[build-system]
+requires = ["uv_build>=0.9.26,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
