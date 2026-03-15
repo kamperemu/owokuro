@@ -20,7 +20,7 @@ owocr -r websocket -w websocket -of json
 ### Run on one volume
 
 ```
-mokuro /path/to/manga/vol1
+owokuro /path/to/manga/vol1
 ```
 This will generate vol1.mokuro in manga folder which can be used with [mokuro reader](https://reader.mokuro.app).
 
@@ -38,5 +38,5 @@ manga_title/
 You can process all volumes by running:
 
 ```
-mokuro --parent_dir manga_title/
+owokuro --parent_dir manga_title/
 ```
