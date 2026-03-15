@@ -26,7 +26,7 @@ manga/
 └─vol4/
 ```
 
-You can process one volume using.
+You can process one volume by running:
 
 ```
 owokuro /path/to/manga/vol1
