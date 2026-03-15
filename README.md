@@ -5,7 +5,7 @@ Generate [mokuro](https://github.com/kha-white/mokuro) files using [owocr](https
 ## Install Instructions
 Install [uv](https://docs.astral.sh/uv/getting-started/installation/) (should theoretically work with python3-pip as well)
 ```
-uv tool install .
+uv tool install git+https://github.com/kamperemu/owokuro
 ```
 
 ## Usage Instructions
