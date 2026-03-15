@@ -17,26 +17,25 @@ If you're using a command line interface you can use this command.
 owocr -r websocket -w websocket -of json
 ```
 
-### Run on one volume
-
-```
-owokuro /path/to/manga/vol1
-```
-This will generate vol1.mokuro in manga folder which can be used with [mokuro reader](https://reader.mokuro.app).
-
-### Run on a directory containing multiple volumes
-
 If your directory structure looks somewhat like this:
 ```
-manga_title/
+manga/
 ├─vol1/
 ├─vol2/
 ├─vol3/
 └─vol4/
 ```
 
+You can process one volume using.
+
+```
+owokuro /path/to/manga/vol1
+```
+
 You can process all volumes by running:
 
 ```
-owokuro --parent_dir manga_title/
+owokuro --parent_dir /path/to/manga
 ```
+
+This will generate mokuro files for each volume in manga_title folder which can be used with [mokuro reader](https://reader.mokuro.app).
