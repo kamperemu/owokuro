@@ -10,7 +10,7 @@ uv tool install git+https://github.com/kamperemu/owokuro
 
 ## Usage Instructions
 
-Install and open owocr with read_from = websocket, write_to = websocket, output_format = json (commandline argument or config file/editor) and keep it open in the background.
+Install and open owocr with read_from = websocket, write_to = websocket, output_format = json (cli argument or config file/editor) and keep it open in the background.
 
 If you're using a command line interface you can use this command.
 ```
