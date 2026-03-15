@@ -12,7 +12,7 @@ uv tool install git+https://github.com/kamperemu/owokuro
 
 Install and open owocr with read_from = websocket, write_to = websocket, output_format = json (cli argument or config file/editor) and keep it open in the background.
 
-If you're using a command line interface you can use this command.
+If you're running owocr through cli you can run:
 ```
 owocr -r websocket -w websocket -of json
 ```
@@ -38,4 +38,4 @@ You can process all volumes by running:
 owokuro --parent_dir /path/to/manga
 ```
 
-This will generate mokuro files for each volume in manga_title folder which can be used with [mokuro reader](https://reader.mokuro.app).
+This will generate mokuro files for each volume in /path/to/manga folder which can be used with [mokuro reader](https://reader.mokuro.app).
