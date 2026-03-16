@@ -61,7 +61,7 @@ def run():
         owocr_json_pages = []
 
         for p in sorted(volume_path.iterdir()):
-            if p.is_file() and p.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp"):
+            if p.is_file() and p.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp", ".avif"):
                 owocr_json_pages.append(owo_socket.process_image(p))
 
         output_mokuro_path = volume_path.parent / f"{volume_path.name}.mokuro"
