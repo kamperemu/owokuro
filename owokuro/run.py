@@ -81,9 +81,21 @@ def run():
         metadata['title_uuid'] = uuid.uuid4()
         metadata['parent_dir'] = args.volume.parent
     elif args.parent_dir:
+        seen_volume_names: set[str] = set()
+
+        # Default sort order is expected to give directories first for priority (but it's okay if that changes)
         for p in sorted(args.parent_dir.iterdir()):
-            if p.is_dir() or _is_supported_archive(p):
-                volume_paths.append(p)
+            if not p.is_dir() and not _is_supported_archive(p):
+                continue
+
+            volume_name = _get_volume_name(p)
+            if volume_name in seen_volume_names:
+                log.warning(f"Skipping duplicate volume: {p}")
+                continue
+
+            volume_paths.append(p)
+            seen_volume_names.add(volume_name)
+
         metadata['title'] = args.parent_dir.name
         metadata['title_uuid'] = uuid.uuid4()
         metadata['parent_dir'] = args.parent_dir
