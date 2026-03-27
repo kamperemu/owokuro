@@ -6,6 +6,8 @@ import uuid
 import zipfile
 from pathlib import Path
 
+from natsort import os_sorted
+
 from owokuro.converter import generate_mokuro_volume
 from owokuro.owosocket import OwocrResult, OwocrWebsocket
 
@@ -71,6 +73,11 @@ def run():
         default=7331,
         help="Port for the OwocrWebsocket connection (default: 7331)",
     )
+    parser.add_argument(
+        "-f", "--force",
+        action="store_true",
+        help="Force overwrite of existing .mokuro files",
+    )
     args = parser.parse_args()
 
     volume_paths: list[Path] = []
@@ -84,7 +91,7 @@ def run():
         seen_volume_names: set[str] = set()
 
         # Default sort order is expected to give directories first for priority (but it's okay if that changes)
-        for p in sorted(args.parent_dir.iterdir()):
+        for p in os_sorted(args.parent_dir.iterdir()):
             if not p.is_dir() and not _is_supported_archive(p):
                 continue
 
@@ -108,6 +115,15 @@ def run():
         volume_name = _get_volume_name(volume_path)
         log.info(f"Starting volume: {volume_name}")
 
+        output_mokuro_path = volume_path.parent / f"{volume_name}.mokuro"
+
+        if output_mokuro_path.exists() and not args.force:
+            log.info(
+                f"Skipping {volume_name} because {output_mokuro_path.name} "
+                "already exists. Use --force to overwrite."
+            )
+            continue
+
         owocr_json_pages: list[OwocrResult] = []
         if volume_path.is_dir():
             owocr_json_pages = _process_directory(owo_socket, volume_path)
@@ -117,7 +133,9 @@ def run():
             log.warning(f"Skipping unsupported volume: {volume_path}")
             continue
 
-        output_mokuro_path = volume_path.parent / f"{volume_name}.mokuro"
+        if not owocr_json_pages:
+            log.warning(f"Skipping empty volume: {volume_name}. No valid images found.")
+            continue
 
         with open(output_mokuro_path, 'w', encoding='utf-8') as f:
             mokuro_data = generate_mokuro_volume(
